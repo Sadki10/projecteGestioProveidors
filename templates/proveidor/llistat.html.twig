@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Proveidors{% endblock %}
+{% block body %}
+    <h1>Llistat de proveïdors</h1>
+    {% include "commons/_flashes.html.twig" %}
+    <table class="table table-striped ">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Correu electrònic</th>
+                <th scope="col">Telèfon de contacte</th>
+                <th scope="col">Tipus de proveïdor</th>
+                <th scope="col">Està actiu</th>
+                <th scope="col">Data d'introducció</th>
+                <th scope="col">Data de modificació</th>
+                <th scope="col">Accions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for index, proveidor in proveidors %}  
+                <tr>
+                    <th scope="row">{{ index + 1}}</th>
+                    <td>{{ proveidor.nom }}</td>
+                    <td>{{ proveidor.email }}</td>
+                    <td>{{ proveidor.telefon }}</td>
+                    <td>{{ proveidor.tipusProveidor }}</td>
+                    <td>{{ proveidor.actiu ? 'Sí' : 'No' }}</td>
+                    <td>{{ proveidor.dataIntroduccio|date('Y-m-d H:i:s') }}</td>
+                    <td>{{ proveidor.dataModificacio|date('Y-m-d H:i:s') }}</td>
+                    <td>
+                        <a class="btn btn-primary" href="{{ path('app_editar_proveidor', {'id': proveidor.id}) }}" role="button" title="Editar">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                        <a class="btn btn-outline-danger" href="{{ path('app_eliminar_proveidor', {'id': proveidor.id}) }}" role="button" title="Eliminar">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
